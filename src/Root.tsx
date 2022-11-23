@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Branch from "./Branch";
 
-axios.defaults.baseURL = "http://localhost:4000/api";
+axios.defaults.baseURL = "https://techstack-api.onrender.com/api";
 
 const Container = styled.div``;
 const Title = styled.div`
