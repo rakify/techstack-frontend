@@ -76,16 +76,12 @@ const Branch = (props: childProps) => {
   // Get childs of this id only when id changes
   useEffect(() => {
     const getChilds = async () => {
-      axios
-        .get(`/folders/find/${props.item.id}`)
-        .then((res) => {
-          // handle success
-          setChilds(res.data);
-        })
-        .catch((err) => {
-          // handle error
-          console.log(err);
-        });
+      try {
+        const res = await axios.get(`/folders/find/${props.item.id}`);
+        setChilds(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     };
     getChilds();
   }, [props.item.id]);

@@ -110,15 +110,13 @@ function Root() {
   // Get childs of Root onload
   useEffect(() => {
     const getChilds = async () => {
-      axios
-        .get(`/folders/find/${parentId}`)
-        .then((res) => {
-          setChilds(res.data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      try {
+        const res = await axios.get(`/folders/find/${parentId}`);
+        setChilds(res.data);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
     };
     getChilds();
   }, [parentId]);
@@ -135,7 +133,10 @@ function Root() {
             paddingLeft: "100px",
           }}
         >
-          <p>Loading... Using free api hosting (render) so its going to take a while. Please wait</p>
+          <p>
+            Loading... Using free api hosting (render) so its going to take a
+            while. Please wait
+          </p>
         </div>
       )}
       {/* open dialog when user wants to add new folder to Root */}
