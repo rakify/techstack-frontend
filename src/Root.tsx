@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Branch from "./Branch";
 
+// base backend url throughout app
 axios.defaults.baseURL = "https://techstack-api.onrender.com/api";
 
 const Container = styled.div``;
@@ -69,10 +70,11 @@ function Root() {
   const [nameToAdd, setNameToAdd] = useState("");
   const [addMsg, setAddMsg] = useState("");
 
+  // Root
   const parentName = "Root";
   const parentId = "6378ef7cb6ccf501ad5153d7";
 
-  // add new folder
+  // function to add new folder
   const addFolderHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     nameToAdd !== "" &&
@@ -84,7 +86,7 @@ function Root() {
           parentId,
         })
         .then((res) =>
-          // Update its parent
+          // Update its parent (add to parents child)
           axios
             .put(`/folders/${parentId}`, {
               name: res.data.data.name,
@@ -102,16 +104,14 @@ function Root() {
         });
   };
 
-  //get childs of Root
+  // Get childs of Root onload
   useEffect(() => {
     axios
       .get(`/folders/find/${parentId}`)
       .then((res) => {
-        // handle success
         setChilds(res.data);
       })
       .catch((err) => {
-        // handle error
         console.log(err);
       });
   }, [parentId]);
@@ -119,7 +119,7 @@ function Root() {
   return (
     <Container>
       <Title>Folder Structure</Title>
-      {/* open dialog when user wants to add new folder */}
+      {/* open dialog when user wants to add new folder to Root */}
       <dialog
         style={{
           maxWidth: "50ch",
@@ -130,6 +130,7 @@ function Root() {
         open={openAddModal}
       >
         {addMsg === "" ? (
+          // show form to input folder name to add
           <>
             <p>Add Folder in `{parentName}`</p>
             <form onSubmit={addFolderHandler} style={{ margin: "10px" }}>
@@ -142,17 +143,23 @@ function Root() {
               />
               <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
                 <button
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
                     setOpenAddModal(false);
                   }}
                 >
                   Cancel
                 </button>
-                <input type="submit" value="Create" />
+                <input
+                  style={{ cursor: "pointer" }}
+                  type="submit"
+                  value="Create"
+                />
               </div>
             </form>
           </>
         ) : (
+          // show success or error msg after submitting form
           <div
             style={{
               display: "flex",
@@ -162,7 +169,11 @@ function Root() {
           >
             <p>{addMsg}</p>
             <button
-              style={{ color: "white", backgroundColor: "red" }}
+              style={{
+                color: "white",
+                backgroundColor: "red",
+                cursor: "pointer",
+              }}
               onClick={() => {
                 setOpenAddModal(false);
                 setAddMsg("");

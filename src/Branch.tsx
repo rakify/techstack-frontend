@@ -28,7 +28,7 @@ const Branch = (props: childProps) => {
   const [addMsg, setAddMsg] = useState("");
   const [deleteMsg, setDeleteMsg] = useState("");
 
-  // add new folder
+  // function to add new folder
   const addFolderHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     parentName !== "" &&
@@ -56,7 +56,7 @@ const Branch = (props: childProps) => {
         });
   };
 
-  // delete folder
+  // function to delete folder
   const deleteFolderHandler = async () => {
     axios
       .delete(`/folders/delete`, {
@@ -72,7 +72,8 @@ const Branch = (props: childProps) => {
         setDeleteMsg(err);
       });
   };
-  //get childs of this id only when id changes
+
+  // Get childs of this id only when id changes
   useEffect(() => {
     axios
       .get(`/folders/find/${props.item.id}`)
@@ -86,9 +87,10 @@ const Branch = (props: childProps) => {
       });
   }, [props.item.id]);
 
-  //checking if there exists children
+  // Checking if there exists children
   const hasChildren = childs && childs.length !== 0;
 
+  // If folder selected render child accordingly or show no folder msg
   const renderBranches = () => {
     if (hasChildren) {
       const newLevel = props.level + 1;
@@ -109,21 +111,26 @@ const Branch = (props: childProps) => {
     );
   };
 
-  const toggleSelected = () => {
+  // handle folder selection
+  const handleSelected = () => {
     setSelected((prev) => !prev);
   };
 
+  // initialize add folder from node
   const addFolder = () => {
     setOpenAddModal(true);
     setParentName(props.item.name);
     setParentId(props.item.id);
   };
+
+  // initialize delete folder from node
   const deleteFolder = () => {
     setOpenDeleteModal(true);
   };
 
   return (
     <>
+      {/* open dialog when user wants to add new folder to Root */}
       <dialog
         style={{
           maxWidth: "50ch",
@@ -133,6 +140,7 @@ const Branch = (props: childProps) => {
         }}
         open={openAddModal}
       >
+        // show form to input folder name to add
         {addMsg === "" ? (
           <>
             <p>Add Folder in `{parentName}`</p>
@@ -153,6 +161,7 @@ const Branch = (props: childProps) => {
                 }}
               >
                 <button
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
                     setOpenAddModal(false);
                     setParentId("");
@@ -161,11 +170,16 @@ const Branch = (props: childProps) => {
                 >
                   Cancel
                 </button>
-                <input type="submit" value="Create" />
+                <input
+                  style={{ cursor: "pointer" }}
+                  type="submit"
+                  value="Create"
+                />
               </div>
             </form>
           </>
         ) : (
+          // show success or error msg after submitting form
           <div
             style={{
               display: "flex",
@@ -175,7 +189,11 @@ const Branch = (props: childProps) => {
           >
             <p>{addMsg}</p>
             <button
-              style={{ color: "white", backgroundColor: "red" }}
+              style={{
+                color: "white",
+                backgroundColor: "red",
+                cursor: "pointer",
+              }}
               onClick={() => {
                 setOpenAddModal(false);
                 setParentId("");
@@ -204,6 +222,7 @@ const Branch = (props: childProps) => {
             <p>Delete `{props.item.name}`</p>
             <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
               <button
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   setOpenDeleteModal(false);
                 }}
@@ -211,6 +230,7 @@ const Branch = (props: childProps) => {
                 Cancel
               </button>
               <button
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   deleteFolderHandler();
                 }}
@@ -220,6 +240,7 @@ const Branch = (props: childProps) => {
             </div>
           </>
         ) : (
+          // show success or error msg
           <div
             style={{
               display: "flex",
@@ -229,7 +250,11 @@ const Branch = (props: childProps) => {
           >
             <p>{deleteMsg}</p>
             <button
-              style={{ color: "white", backgroundColor: "red" }}
+              style={{
+                color: "white",
+                backgroundColor: "red",
+                cursor: "pointer",
+              }}
               onClick={() => {
                 setOpenDeleteModal(false);
                 window.location.reload();
@@ -251,7 +276,7 @@ const Branch = (props: childProps) => {
           item={props.item}
           selected={selected}
           level={props.level + 1}
-          onToggle={toggleSelected}
+          onToggle={handleSelected}
           addFolder={addFolder}
           deleteFolder={deleteFolder}
         />
