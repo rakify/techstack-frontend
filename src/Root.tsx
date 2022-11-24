@@ -72,6 +72,7 @@ function Root() {
   // since render closes its web service in every 15 minutes inactivity I should check if thats live yet
   const [loading, setLoading] = useState(true);
 
+  console.log(loading, childs);
   // Root
   const parentName = "Root";
   const parentId = "6378ef7cb6ccf501ad5153d7";
