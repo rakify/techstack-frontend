@@ -77,8 +77,9 @@ function Root() {
   // function to add new folder
   const addFolderHandler = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Add folder
     nameToAdd !== "" &&
-      // Add folder
       axios
         .post(`/folders`, {
           name: nameToAdd,
@@ -129,8 +130,8 @@ function Root() {
         }}
         open={openAddModal}
       >
+        {/* show form to input folder name to add or if submits display result */}
         {addMsg === "" ? (
-          // show form to input folder name to add
           <>
             <p>Add Folder in `{parentName}`</p>
             <form onSubmit={addFolderHandler} style={{ margin: "10px" }}>
@@ -159,7 +160,6 @@ function Root() {
             </form>
           </>
         ) : (
-          // show success or error msg after submitting form
           <div
             style={{
               display: "flex",

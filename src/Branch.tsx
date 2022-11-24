@@ -140,7 +140,7 @@ const Branch = (props: childProps) => {
         }}
         open={openAddModal}
       >
-        // show form to input folder name to add
+        {/* show form to input folder name to add, if submits then show result*/}
         {addMsg === "" ? (
           <>
             <p>Add Folder in `{parentName}`</p>
@@ -179,7 +179,6 @@ const Branch = (props: childProps) => {
             </form>
           </>
         ) : (
-          // show success or error msg after submitting form
           <div
             style={{
               display: "flex",
@@ -207,7 +206,7 @@ const Branch = (props: childProps) => {
         )}
       </dialog>
 
-      {/* Dialog to Delete */}
+      {/* Dialog to Delete, if submits show result */}
       <dialog
         style={{
           maxWidth: "50ch",
@@ -240,7 +239,6 @@ const Branch = (props: childProps) => {
             </div>
           </>
         ) : (
-          // show success or error msg
           <div
             style={{
               display: "flex",
