@@ -219,7 +219,14 @@ const Branch = (props: childProps) => {
         {deleteMsg === "" ? (
           <>
             <p>Delete `{props.item.name}`</p>
-            <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginTop: "10px",
+                justifyContent: "flex-end",
+              }}
+            >
               <button
                 style={{ cursor: "pointer" }}
                 onClick={() => {
