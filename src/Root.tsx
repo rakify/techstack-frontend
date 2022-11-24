@@ -129,9 +129,9 @@ function Root() {
           style={{
             color: "red",
             border: "1px solid red",
-            width: "100vw",
-            height: "100vh",
-            padding: "100px",
+            width: "60vw",
+            height: "60vh",
+            padding: "50px",
             textAlign: "center",
           }}
         >
