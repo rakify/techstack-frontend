@@ -125,10 +125,21 @@ function Root() {
       <Title>Folder Structure</Title>
       {/* // since render closes its web service in every 15 minutes inactivity I should check if thats live yet */}
       {!connection && (
-        <p style={{ color: "red" }}>
-          I am using render free web service which stops in every 15mins of
-          inactivity. Api is not ready yet.. So please wait a while..
-        </p>
+        <div
+          style={{
+            color: "red",
+            border: "1px solid red",
+            width: "100vw",
+            height: "100vh",
+            padding: "100px",
+            textAlign: "center",
+          }}
+        >
+          My api is running on render (free web service) which stops in every
+          15mins of inactivity. If you are watching this it means api is not
+          ready yet. So please wait a while. This is going to happen only once
+          after 15mins of inactivity.
+        </div>
       )}
       {/* open dialog when user wants to add new folder to Root */}
       <dialog
