@@ -132,9 +132,10 @@ function Root() {
           style={{
             color: "red",
             border: "1px solid red",
+            paddingLeft: "100px",
           }}
         >
-          <p>Loading...Please Wait</p>
+          <p>Loading... Using free api hosting (render) so its going to take a while. Please wait</p>
         </div>
       )}
       {/* open dialog when user wants to add new folder to Root */}
