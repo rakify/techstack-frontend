@@ -69,6 +69,8 @@ function Root() {
   const [childs, setChilds] = useState<folderType[]>([]);
   const [nameToAdd, setNameToAdd] = useState("");
   const [addMsg, setAddMsg] = useState("");
+  // since render closes its web service in every 15 minutes inactivity I should check if thats live yet
+  const [connection, setConnection] = useState(false);
 
   // Root
   const parentName = "Root";
@@ -110,6 +112,7 @@ function Root() {
     axios
       .get(`/folders/find/${parentId}`)
       .then((res) => {
+        res.status === 200 && setConnection(true);
         setChilds(res.data);
       })
       .catch((err) => {
@@ -120,6 +123,13 @@ function Root() {
   return (
     <Container>
       <Title>Folder Structure</Title>
+      {/* // since render closes its web service in every 15 minutes inactivity I should check if thats live yet */}
+      {!connection && (
+        <p style={{ color: "red" }}>
+          I am using render free web service which stops in every 15mins of
+          inactivity. Api is not ready yet.. So please wait a while..
+        </p>
+      )}
       {/* open dialog when user wants to add new folder to Root */}
       <dialog
         style={{
