@@ -107,17 +107,18 @@ function Root() {
         });
   };
 
+  const getChilds = async () => {
+    try {
+      const res = await axios.get(`/folders/find/${parentId}`);
+      setChilds(res.data);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // Get childs of Root onload
   useEffect(() => {
-    const getChilds = async () => {
-      try {
-        const res = await axios.get(`/folders/find/${parentId}`);
-        setChilds(res.data);
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     getChilds();
   }, [parentId]);
 
