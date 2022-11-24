@@ -112,7 +112,9 @@ function Root() {
     axios
       .get(`/folders/find/${parentId}`)
       .then((res) => {
-        res.status === 200 && setConnection(true);
+        if (res.status === 200) {
+          !connection && setConnection(true);
+        }
         setChilds(res.data);
       })
       .catch((err) => {
