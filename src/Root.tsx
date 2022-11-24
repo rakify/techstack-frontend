@@ -70,7 +70,7 @@ function Root() {
   const [nameToAdd, setNameToAdd] = useState("");
   const [addMsg, setAddMsg] = useState("");
   // since render closes its web service in every 15 minutes inactivity I should check if thats live yet
-  const [connection, setConnection] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Root
   const parentName = "Root";
@@ -109,38 +109,32 @@ function Root() {
 
   // Get childs of Root onload
   useEffect(() => {
-    axios
-      .get(`/folders/find/${parentId}`)
-      .then((res) => {
-        if (res.status === 200) {
-          !connection && setConnection(true);
-        }
-        setChilds(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const getChilds = async () => {
+      axios
+        .get(`/folders/find/${parentId}`)
+        .then((res) => {
+          setChilds(res.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getChilds();
   }, [parentId]);
 
   return (
     <Container>
       <Title>Folder Structure</Title>
       {/* // since render closes its web service in every 15 minutes inactivity I should check if thats live yet */}
-      {!connection && (
+      {loading && (
         <div
           style={{
             color: "red",
             border: "1px solid red",
-            width: "60vw",
-            height: "60vh",
-            padding: "50px",
-            textAlign: "center",
           }}
         >
-          My api is running on render (free web service) which stops in every
-          15mins of inactivity. If you are watching this it means api is not
-          ready yet. So please wait a while. This is going to happen only once
-          after 15mins of inactivity.
+          <p>Loading...Please Wait</p>
         </div>
       )}
       {/* open dialog when user wants to add new folder to Root */}
