@@ -122,24 +122,27 @@ function Root() {
     getChilds();
   }, [parentId]);
 
+  if (loading) {
+    return (
+      <div
+        style={{
+          color: "red",
+          border: "1px solid red",
+          paddingLeft: "100px",
+        }}
+      >
+        <p>
+          Loading... Using free api hosting (render) so its going to take a
+          while. Please wait
+        </p>
+      </div>
+    );
+  }
+
   return (
     <Container>
       <Title>Folder Structure</Title>
       {/* // since render closes its web service in every 15 minutes inactivity I should check if thats live yet */}
-      {loading && (
-        <div
-          style={{
-            color: "red",
-            border: "1px solid red",
-            paddingLeft: "100px",
-          }}
-        >
-          <p>
-            Loading... Using free api hosting (render) so its going to take a
-            while. Please wait
-          </p>
-        </div>
-      )}
       {/* open dialog when user wants to add new folder to Root */}
       <dialog
         style={{
