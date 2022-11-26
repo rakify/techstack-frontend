@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Branch from "./Branch";
 
 // base backend url throughout app
-axios.defaults.baseURL = "https://rakib-folder.vercel.app/api";
+axios.defaults.baseURL = "https://techstack-backend-vercel.vercel.app/api";
 
 const Container = styled.div``;
 const Title = styled.div`
